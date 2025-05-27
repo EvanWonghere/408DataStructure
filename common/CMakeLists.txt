@@ -1,7 +1,7 @@
 # common/CMakeLists.txt
 
 # 收集所有 common/src 下的源文件
-file(GLOB COMMON_SOURCES src/*.cpp) # 根据你的目录结构调整
+file(GLOB COMMON_SOURCES src/*.cpp examples/*.cpp examples/utils/*.cpp) # 根据你的目录结构调整
 
 # 添加一个静态库 ds_common
 add_library(ds_common STATIC ${COMMON_SOURCES})
