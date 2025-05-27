@@ -24,6 +24,7 @@ endif()
 # 提供选项来控制是否构建习题和示例
 option(BUILD_EXERCISES "Build chapter exercises" ON)
 option(BUILD_EXAMPLES "Build chapter examples" ON)
+option(BUILD_TESTS "Build chapter tests" ON)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake") # 将 cmake 目录添加到模块路径
 include(ChapterBuilder) # 包含定义的模块
