@@ -1,0 +1,2 @@
+#chapters/3-StackAndQueueAndArray/CMakeLists.txt
+build_standard_chapter_targets()
