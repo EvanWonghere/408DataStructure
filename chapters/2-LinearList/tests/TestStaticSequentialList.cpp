@@ -34,8 +34,11 @@ int main() {
     std::cout << std::endl;
 
     std::cout << "Try to add element while full." << std::endl;
-    if (sl.push_back(7)) std::cout << "Add element succeed." << std::endl;
-    else std::cout << "Add element failed." << std::endl << std::endl;
+    try {
+        if (sl.push_back(7)) std::cout << "Add element succeed." << std::endl;
+    } catch (const std::out_of_range& e) {
+        std::cerr << "Caught an out_of_range exception: " << e.what() << std::endl << std::endl;
+    }
 
     std::cout << "Try to clear the list." << std::endl;
     sl.clear();
@@ -45,8 +48,11 @@ int main() {
     std::cout << std::endl;
 
     std::cout << "Try to delete element while empty." << std::endl;
-    if (sl.del(0)) std::cout << "Delete element succeed." << std::endl;
-    else std::cout << "Delete element failed." << std::endl << std::endl;
+    try {
+        if (sl.del(0)) std::cout << "Delete element succeed." << std::endl;
+    } catch (const std::out_of_range& e) {
+        std::cerr << "Caught an out_of_range exception: " << e.what() << std::endl << std::endl;
+    }
 
     std::cout << "Try to access element while empty." << std::endl;
     try {

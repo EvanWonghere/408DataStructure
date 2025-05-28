@@ -26,6 +26,7 @@ obj/
 # IDE-specific files
 .vscode/
 .idea/
+tempCodeRunnerFile*
 *.suo
 *.ntvs*
 *.njsproj
