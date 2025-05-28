@@ -29,6 +29,9 @@ public:
      */
     StaticSequentialList(int capacity);
 
+    /** @brief Copy constructor. Performs deep copy. */
+    StaticSequentialList(const StaticSequentialList& other);
+
     /**
      * @brief Default destructor.
      */
@@ -87,6 +90,7 @@ public:
      * @return The index of the value if found, -1 otherwise.
      */
     int locate(const type_t& value) const;
+    int locate(const type_t& value, bool is_sorted) const;
 
     /**
      * @brief Inserts a value at the specified index, shifting subsequent elements right.
@@ -131,6 +135,14 @@ StaticSequentialList<type_t>::StaticSequentialList(int capacity)
     : capacity_(capacity), length_(0), data(std::make_unique<type_t[]>(capacity)) {}
 
 template<class type_t>
+StaticSequentialList<type_t>::StaticSequentialList(const StaticSequentialList& other)
+    : capacity_(other.capacity_), length_(other.length_), data(std::make_unique<type_t[]>(other.capacity_)) {
+    for (auto i = 0; i < length_; ++i) {
+        data[i] = other.data[i];
+    }
+}
+
+template<class type_t>
 const type_t& StaticSequentialList<type_t>::operator[](const int& i) const {
     if (i < 0 || i >= length_) throw std::out_of_range("Index out of range");
     return data[i];
@@ -168,6 +180,28 @@ int StaticSequentialList<type_t>::locate(const type_t& value) const {
         if (data[i] == value) return i;
     }
     return -1;
+}
+
+template<class type_t>
+int StaticSequentialList<type_t>::locate(const type_t& value, bool is_sorted) const {
+    if (!is_sorted) {
+        for (int i = 0; i < length_; ++i) {
+            if (data[i] == value) return i;
+        }
+        return -1;
+    } else {
+        int left = 0, right = length_ - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (data[mid] == value)
+                return mid;
+            else if (data[mid] < value)
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+        return -1;
+    }
 }
 
 template<class type_t>

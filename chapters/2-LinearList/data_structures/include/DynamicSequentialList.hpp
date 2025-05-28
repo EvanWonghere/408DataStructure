@@ -85,6 +85,7 @@ public:
 
     /** @brief Searches for a value. Returns index or -1 if not found. */
     int locate(const type_t& value) const;
+    int locate(const type_t& value, bool is_sorted) const;
 
     /** @brief Inserts value at position. Throws std::out_of_range if invalid. */
     bool insert(const int& pos, const type_t& val);
@@ -314,6 +315,28 @@ int DynamicSequentialList<type_t>::locate(const type_t& value) const {
         if (data[i] == value) return i;
     }
     return -1;
+}
+
+template<class type_t>
+int DynamicSequentialList<type_t>::locate(const type_t& value, bool is_sorted) const {
+    if (!is_sorted) {
+        for (int i = 0; i < length_; ++i) {
+            if (data[i] == value) return i;
+        }
+        return -1;
+    } else {
+        int left = 0, right = length_ - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (data[mid] == value)
+                return mid;
+            else if (data[mid] < value)
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+        return -1;
+    }
 }
 
 template<class type_t>
